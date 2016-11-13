@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: all:!gfs-cluster
   gather_facts: false
   roles:
     - bootstrap-os
@@ -10,7 +10,7 @@
 - hosts: all
   gather_facts: true
 
-- hosts: all
+- hosts: all:!gfs-cluster
   roles:
     - { role: kubernetes/preinstall, tags: preinstall }
 
@@ -32,6 +32,11 @@
   roles:
     - { role: dnsmasq, tags: dnsmasq }
 
+- hosts: gfs-cluster
+  roles:
+    - { role: glusterfs }
+
 - hosts: kube-master[0]
   roles:
     - { role: kubernetes-apps, tags: apps }
+
