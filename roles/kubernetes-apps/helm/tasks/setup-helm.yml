@@ -1,0 +1,23 @@
+---
+- name: Setup Helm | Download and unarchive helm
+  unarchive: 
+   src: "http://storage.googleapis.com/kubernetes-helm/helm-v2.0.0-linux-amd64.tar.gz"
+   dest: "/tmp"
+   remote_src: yes
+  when: inventory_hostname == groups['kube-master'][0] and helm_packages
+
+- name: Setup Helm | Install helm 
+  copy: "src=/tmp/linux-amd64/helm dest={{ bin_dir }}/helm remote_src=True mode='a+x'"
+  when: inventory_hostname == groups['kube-master'][0] and helm_packages
+ 
+- name: Setup Helm | Init helm
+  command: "helm init"
+  when: inventory_hostname == groups['kube-master'][0] and helm_packages
+
+- name: Setup Helm | wait for helm start
+  action: shell helm list
+  register: result
+  until: result.rc == 0
+  retries: 5
+  delay: 5
+  when: inventory_hostname == groups['kube-master'][0] and helm_packages

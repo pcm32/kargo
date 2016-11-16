@@ -160,3 +160,15 @@ k8s_image_pull_policy: IfNotPresent
 # default packages to install within the cluster
 kpm_packages: []
 #  - name: kube-system/grafana
+# default helm packages to install within cluster
+helm_packages:
+#    - chart: "https://url.to/my-chart-a-0.1.1.tgz"
+#      release_name: "chart-a-dep"
+#      set_vars:
+#          - var_name: "user"
+#            value: "robert"
+#          - var_name: "image"
+#            value: "app-zero"
+#    - chart: "https://url.to/my-chart-b-0.1.1.tgz"
+#      release_name: "chart-b-dep"
+#

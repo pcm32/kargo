@@ -1,2 +1,9 @@
 ---
-- debug: msg="No helm charts"
+- include: setup-helm.yml
+  when: helm_packages
+
+- name: Install Helm Packages
+  command: "helm install {{ item.chart }} {% if item.set_vars -%}--set {% for pair in item.set_vars %} {{ pair.var_name }}={{ pair.value }}{% if not loop.last %},{% endif %}{% endfor %}{% endif %} {% if item.release_name -%}--name {{ item.release_name }} {% endif %}"
+  with_items: "{{ helm_packages }}"
+  when: inventory_hostname == groups['kube-master'][0] and helm_packages
+  
