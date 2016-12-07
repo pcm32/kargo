@@ -1,5 +1,5 @@
 # Valid bootstrap options (required): ubuntu, coreos, none
-bootstrap_os: none
+bootstrap_os: ubuntu 
 
 # Directory where the binaries will be installed
 bin_dir: /usr/local/bin
@@ -160,15 +160,11 @@ k8s_image_pull_policy: IfNotPresent
 # default packages to install within the cluster
 kpm_packages: []
 #  - name: kube-system/grafana
+#
 # default helm packages to install within cluster
 helm_packages:
-#    - chart: "https://url.to/my-chart-a-0.1.1.tgz"
-#      release_name: "chart-a-dep"
-#      set_vars:
-#          - var_name: "user"
-#            value: "robert"
-#          - var_name: "image"
-#            value: "app-zero"
-#    - chart: "https://url.to/my-chart-b-0.1.1.tgz"
-#      release_name: "chart-b-dep"
-#
+     - chart: "https://pcm32.github.io/galaxy-helm-charts/galaxy-postgres-chart-0.1.1.tgz"
+       release_name: "galaxy-vre1" 
+       set_vars: 
+           - var_name: "galaxy_image"
+             value: 'phnmnl/galaxy-k8s-branded'
