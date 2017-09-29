@@ -2,7 +2,6 @@
 - hosts: gfs-cluster
   gather_facts: false
   vars:
-    bootstrap_os: ubuntu
     ansible_ssh_pipelining: false
   roles:
    - { role: bootstrap-os, tags: bootstrap-os}
